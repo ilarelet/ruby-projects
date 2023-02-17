@@ -1,0 +1,7 @@
+This repository is made to keep track of the projects I created to practice Ruby my skills
+and learn many new things as a part of the Odin Project.
+
+1. Ceasar cipher is a basic encryption technique which ciphers a text replacing each letter 
+    with a letter shifted by a fixed number of positions in the alphabet. 
+    That basic code defines a method that takes a string and a shift factor and returns an 
+    'encrypted' string. 
