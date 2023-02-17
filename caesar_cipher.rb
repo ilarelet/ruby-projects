@@ -1,9 +1,16 @@
 def cipher(string,shift_by)
     array = string.split("") #Creating an array of charaters
     ciphered = array.map do |letter|
-        original_index = letter.ord
+        original_index = letter.ord #get an ASCII code of a letter
         if original_index in (65..90) or original_index in (97..122) #if a character is a letter
-            ciphered_letter = (original_index + shift_by).chr #update the index and return a ciphered letter
+            new_index = (original_index + shift_by) #update the index and return a ciphered letter
+            #if new index is out of the alphabet range we must return back to beginning from 'z' to 'a'
+            #With a large shift index uppercase letters might get into the lowercase interval after updating
+            #The condition second prevents it
+            if new_index > 122 or (new_index > 90 and letter.upcase == letter) 
+                new_index -= 26
+            end
+            ciphered_letter = new_index.chr 
         else letter #if a character is not a letter - leave it unchanged
         end
     end
