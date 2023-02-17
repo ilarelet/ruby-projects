@@ -1,29 +1,13 @@
-def cipher_letter(letter, shift_by, hash)
-    original_index = hash[letter].to_i
-    unless original_index + shift_by >= 26
-        hash.key(original_index + shift_by)
-    else
-        hash.key(original_index + shift_by-26)
-    end
-end
-
 def cipher(string,shift_by)
-    lower_array=("a".."z").to_a
-    letter_hash = Hash.new
-    lower_array.each_index{|index| letter_hash[lower_array[index]]=index}
-
-    array = string.split("")
+    array = string.split("") #Creating an array of charaters
     ciphered = array.map do |letter|
-        if lower_array.include?(letter.downcase) 
-            if letter.upcase == letter
-                cipher_letter(letter.downcase, shift_by, letter_hash).upcase
-            else
-                cipher_letter(letter, shift_by, letter_hash)
-            end
-        else letter
+        original_index = letter.ord
+        if original_index in (65..90) or original_index in (97..122) #if a character is a letter
+            ciphered_letter = (original_index + shift_by).chr #update the index and return a ciphered letter
+        else letter #if a character is not a letter - leave it unchanged
         end
     end
-    ciphered.join
+    ciphered.join #make up a string from the updated array
 end
 
 puts "Enter your string: "
