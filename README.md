@@ -17,4 +17,7 @@ Ceasar cipher is a basic encryption technique which ciphers a text replacing eac
  This method takes an array of stock proces - one for each day. It returns the best days to buy and sell these stocks based on the biggest profit.
 </li>
 
+## <li> Bubble sort
+
+A classic bubble sort algorithm implemented in Ruby.
 </ol>
