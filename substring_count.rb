@@ -1,4 +1,6 @@
 def substring_count(string, dictionary)
+    #Creation an array of strings out of 
+
     #Creating a hash to store the final result
     count_hash = Hash.new(0)
     dictionary.each do |word| 
@@ -14,4 +16,4 @@ def substring_count(string, dictionary)
 end
 
 dictionary = ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"]
-puts substring_count('below', dictionary)
+puts substring_count("Howdy partner, sit down! How's it going?", dictionary)
