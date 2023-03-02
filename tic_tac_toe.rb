@@ -13,6 +13,27 @@ class Cell
     end
 end
 
+class Player
+    def initialize(name, sign)
+        @name = name
+        @sign = sign
+    end
+    
+    #player's turn
+    def turn(field)
+        puts "Choose a row: "
+        row = gets.to_i
+        puts "Choose a column: "
+        column = gets.to_i
+        if field[row][column] == nil
+            field[row][column].mark(@sign)
+        else
+            puts "This cell is already marked"
+        end
+    end
+end
+
+
 #Creating the two-dimensional array
 rows = 0..2
 columns = 0..2
@@ -21,19 +42,6 @@ field = Array.new(3){Array.new(3)}
 rows.each do |row| 
     columns.each do |column|
         field[row][column] = Cell.new(row, column)
-    end
-end
-
-#player's turn
-def turn(player)
-    puts "Choose a row: "
-    row = gets.to_i
-    puts "Choose a column: "
-    column = gets.to_i
-    if field[row][column] == nil
-        field[row][column].mark(player)
-    else
-        puts "This cell is already marked"
     end
 end
 
