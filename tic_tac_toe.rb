@@ -23,3 +23,16 @@ rows.each do |row|
         field[row][column] = Cell.new(row, column)
     end
 end
+
+#player's turn
+def turn(player)
+    puts "Choose a row: "
+    row = gets.to_i
+    puts "Choose a column: "
+    column = gets.to_i
+    if field[row][column] == nil
+        field[row][column].mark(player)
+    else
+        puts "This cell is already marked"
+    end
+end
