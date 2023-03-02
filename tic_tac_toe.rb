@@ -36,3 +36,24 @@ def turn(player)
         puts "This cell is already marked"
     end
 end
+
+#check if the game's over
+def check
+    rows.each do |row| 
+        if field[row][0] == field[row][1] == field[row][2] != nil
+            return true
+        end
+    end
+    column.each do |column| 
+        if field[0][column] == field[1][column] == field[2][column] != nil
+            return true
+        end
+    end
+    if field[0][0] == field[1][1] == field[2][2] != nil
+        return true
+    end
+    if field[0][2] == field[1][1] == field[2][0] != nil
+        return true
+    end
+    return false
+end
