@@ -2,9 +2,8 @@ class Cell
     attr_reader :row, :column
     attr_accessor :sign
     
-    def initialize(row, column)
-        @row = row
-        @column = column
+    def initialize(num)
+        @num
         @sign = nil
     end
     #Marking a cell with a sign (X or 0)
@@ -29,39 +28,40 @@ class Player
             field[row][column].mark(@sign)
         else
             puts "This cell is already marked"
+            self.turn(field)
         end
     end
 end
 
-
-#Creating the two-dimensional array
-rows = 0..2
-columns = 0..2
-field = Array.new(3){Array.new(3)}
-#Filling the array with Cells
-rows.each do |row| 
-    columns.each do |column|
-        field[row][column] = Cell.new(row, column)
-    end
-end
-
-#check if the game's over
-def check
-    rows.each do |row| 
-        if field[row][0] == field[row][1] == field[row][2] != nil
-            return true
+class Field
+    attr_accessor :cells
+    def initialize
+        @cells = Array.new(9)
+        #Filling the one-dimensional array with cells
+        #[0][1][2]
+        #[3][4][5]
+        #[6][7][8]
+        @cells.each_index do |index, cell| 
+            cells[index] = Cell.new(cell)
         end
+        @lines = [
+            [cells[0],cells[1],cells[2]],
+            [cells[3],cells[4],cells[5]],
+            [cells[6],cells[7],cells[8]],
+            [cells[0],cells[3],cells[6]],
+            [cells[1],cells[4],cells[7]],
+            [cells[2],cells[5],cells[8]],
+            [cells[0],cells[4],cells[8]],
+            [cells[2],cells[4],cells[6]]]        
     end
-    column.each do |column| 
-        if field[0][column] == field[1][column] == field[2][column] != nil
-            return true
+
+    #check if there is a full line
+    def is_full_line?(sign)
+        lines.each do |line|
+            if line[0] == line[1] == line[2] == sign do
+                return true
+            end
         end
+        return false
     end
-    if field[0][0] == field[1][1] == field[2][2] != nil
-        return true
-    end
-    if field[0][2] == field[1][1] == field[2][0] != nil
-        return true
-    end
-    return false
 end
