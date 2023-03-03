@@ -13,14 +13,17 @@ class Cell
 end
 
 class Player
-    def initialize(name, sign)
-        @name = name
+    attr_reader :name
+    attr_accessor :sign
+    def initialize(number, sign)
+        puts "Player ##{number}, enter your name: "
+        @name = gets.chomp
         @sign = sign
     end
     
     #player's turn
     def turn(field)
-        puts "Choose a cell: "
+        puts "#{@name}, choose a cell: "
         begin
             choice = gets.to_i
         rescue
@@ -81,3 +84,11 @@ class Field
         end
     end
 end
+
+game_field = Field.new
+player1 = Player.new(1,'X')
+player2 = Player.new(2,'0')
+puts "Welcome, #{player1.name} and #{player2.name}! Let's begin!"
+game_field.draw
+player1.turn(game_field)
+game_field.draw
