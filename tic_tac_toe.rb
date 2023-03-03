@@ -6,6 +6,7 @@ class Cell
         @num = num
         @sign = nil
     end
+
     #Marking a cell with a sign (X or 0)
     def mark(sign)
         @sign = sign
@@ -13,12 +14,19 @@ class Cell
 end
 
 class Player
-    attr_reader :name
+    attr_reader :name, :id
     attr_accessor :sign
-    def initialize(number, sign)
-        puts "Player ##{number}, enter your name: "
+    @@players = []
+
+    def initialize(id, sign)
+        puts "Player ##{id}, enter your name: "
         @name = gets.chomp
         @sign = sign
+        @@players.push(self)
+    end
+
+    def self.all_players
+        @@players
     end
     
     #player's turn
@@ -30,7 +38,7 @@ class Player
             puts "Your choice is invalid. A correct cell number (1 to 9) is required: "
             self.turn(field)
         else
-            if choice <= 8 and choice >= 0 and field.cells[choice-1].sign == nil
+            if choice <= 9 and choice >= 1 and field.cells[choice-1].sign == nil
                 field.cells[choice-1].mark(@sign)
             else
                 puts "This cell is already marked or the number is invalid"
@@ -42,7 +50,7 @@ class Player
 end
 
 class Field
-    attr_accessor :cells
+    attr_accessor :cells, :players
 
     def initialize
         @cells = Array.new(9)
@@ -96,12 +104,15 @@ game_field.draw
 
 #Game flow
 game_over=false
+
 until game_over
-    player1.turn(game_field)
-    game_over = game_field.has_full_line?(player1.sign)
-    unless game_over
-        player2.turn(game_field)
-        game_over = game_field.has_full_line?(player2.sign)
-    end
+    Player.all_players.each do |current_player|
+        current_player.turn(game_field)
+        game_over = game_field.has_full_line?(current_player.sign)
+        if game_over
+            puts "Cogratulations! #{current_player.name} won!"
+            break
+        end
+    end    
 end
 puts "Game over!"
