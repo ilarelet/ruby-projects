@@ -37,6 +37,7 @@ class Player
                 self.turn(field)
             end
         end
+        field.draw
     end
 end
 
@@ -65,9 +66,9 @@ class Field
     end
 
     #check if there is a full line
-    def is_full_line?(sign)
+    def has_full_line?(sign)
         @lines.each do |line|
-            if line[0] == line[1] and line[0] == line[2] and line[0] == sign
+            if line[0].sign == line[1].sign and line[0].sign == line[2].sign and line[0].sign == sign
                 return true
             end
         end
@@ -90,5 +91,14 @@ player1 = Player.new(1,'X')
 player2 = Player.new(2,'0')
 puts "Welcome, #{player1.name} and #{player2.name}! Let's begin!"
 game_field.draw
-player1.turn(game_field)
-game_field.draw
+
+game_over=false
+until game_over
+    player1.turn(game_field)
+    game_over = game_field.has_full_line?(player1.sign)
+    unless game_over
+        player2.turn(game_field)
+        game_over = game_field.has_full_line?(player2.sign)
+    end
+end
+puts "Game over!"
