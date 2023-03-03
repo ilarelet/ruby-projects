@@ -1,9 +1,9 @@
 class Cell
-    attr_reader :row, :column
+    attr_reader :num
     attr_accessor :sign
     
     def initialize(num)
-        @num
+        @num = num
         @sign = nil
     end
     #Marking a cell with a sign (X or 0)
@@ -42,26 +42,38 @@ class Field
         #[3][4][5]
         #[6][7][8]
         @cells.each_index do |index, cell| 
-            cells[index] = Cell.new(cell)
+            @cells[index] = Cell.new(index)
         end
         @lines = [
-            [cells[0],cells[1],cells[2]],
-            [cells[3],cells[4],cells[5]],
-            [cells[6],cells[7],cells[8]],
-            [cells[0],cells[3],cells[6]],
-            [cells[1],cells[4],cells[7]],
-            [cells[2],cells[5],cells[8]],
-            [cells[0],cells[4],cells[8]],
-            [cells[2],cells[4],cells[6]]]        
+            [@cells[0],@cells[1],@cells[2]],
+            [@cells[3],@cells[4],@cells[5]],
+            [@cells[6],@cells[7],@cells[8]],
+            [@cells[0],@cells[3],@cells[6]],
+            [@cells[1],@cells[4],@cells[7]],
+            [@cells[2],@cells[5],@cells[8]],
+            [@cells[0],@cells[4],@cells[8]],
+            [@cells[2],@cells[4],@cells[6]]]        
     end
 
     #check if there is a full line
     def is_full_line?(sign)
-        lines.each do |line|
-            if line[0] == line[1] == line[2] == sign do
+        @lines.each do |line|
+            if line[0] == line[1] and line[0] == line[2] and line[0] == sign
                 return true
             end
         end
         return false
     end
+
+    def draw
+        @cells.each do |cell|
+            print "|#{cell.num}: #{cell.sign} | "
+            if cell.num == 2 or cell.num == 5
+                print "\n"
+            end
+        end
+    end
 end
+
+my_field = Field.new
+my_field.draw
