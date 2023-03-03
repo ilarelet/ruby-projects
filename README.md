@@ -20,4 +20,9 @@ Ceasar cipher is a basic encryption technique which ciphers a text replacing eac
 ## <li> Bubble sort
 
 A classic bubble sort algorithm implemented in Ruby.
+</li>
+
+## <li> Tic-Tac-Toe
+A console (so far) Ruby implementation of a classic game for 2 players.
+
 </ol>
