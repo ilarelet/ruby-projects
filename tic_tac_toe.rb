@@ -83,6 +83,16 @@ class Field
         return false
     end
 
+    #check of there are no empty cells left
+    def is_full?
+        @cells.each do |cell|
+            if cell.sign == nil
+                return false
+            end
+        end
+        return true
+    end
+
     #printing the graph in the console to see current situation
     def draw
         @cells.each do |cell|
@@ -109,8 +119,15 @@ until game_over
     Player.all_players.each do |current_player|
         current_player.turn(game_field)
         game_over = game_field.has_full_line?(current_player.sign)
+        #If the field has a full line of the same sign the game is over
         if game_over
             puts "Cogratulations! #{current_player.name} won!"
+            break
+        end
+        #If the field is all full the game ends in a tie
+        if game_field.is_full?
+            puts "It's a tie! There are no empty cells left."
+            game_over = true
             break
         end
     end    
