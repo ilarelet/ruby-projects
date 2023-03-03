@@ -20,21 +20,26 @@ class Player
     
     #player's turn
     def turn(field)
-        puts "Choose a row: "
-        row = gets.to_i
-        puts "Choose a column: "
-        column = gets.to_i
-        if field[row][column] == nil
-            field[row][column].mark(@sign)
-        else
-            puts "This cell is already marked"
+        puts "Choose a cell: "
+        begin
+            choice = gets.to_i
+        rescue
+            puts "Your choice is invalid. A correct cell number (1 to 9) is required: "
             self.turn(field)
+        else
+            if choice <= 8 and choice >= 0 and field.cells[choice-1].sign == nil
+                field.cells[choice-1].mark(@sign)
+            else
+                puts "This cell is already marked or the number is invalid"
+                self.turn(field)
+            end
         end
     end
 end
 
 class Field
     attr_accessor :cells
+
     def initialize
         @cells = Array.new(9)
         #Filling the one-dimensional array with cells
@@ -44,6 +49,7 @@ class Field
         @cells.each_index do |index, cell| 
             @cells[index] = Cell.new(index)
         end
+        #straight lines - to be checked after each turn
         @lines = [
             [@cells[0],@cells[1],@cells[2]],
             [@cells[3],@cells[4],@cells[5]],
@@ -65,15 +71,13 @@ class Field
         return false
     end
 
+    #printing the graph in the console to see current situation
     def draw
         @cells.each do |cell|
-            print "|#{cell.num}: #{cell.sign} | "
-            if cell.num == 2 or cell.num == 5
+            print "|#{cell.num+1}: #{cell.sign} | "
+            if cell.num == 2 or cell.num == 5 or cell.num == 8
                 print "\n"
             end
         end
     end
 end
-
-my_field = Field.new
-my_field.draw
