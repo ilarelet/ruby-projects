@@ -78,7 +78,7 @@ class Field
     #printing the graph in the console to see current situation
     def draw
         @cells.each do |cell|
-            print "|#{cell.num+1}: #{cell.sign} | "
+            print "|#{cell.num + 1}: #{cell.sign} | "
             if cell.num == 2 or cell.num == 5 or cell.num == 8
                 print "\n"
             end
@@ -86,12 +86,15 @@ class Field
     end
 end
 
+#Creating a new game
 game_field = Field.new
-player1 = Player.new(1,'X')
-player2 = Player.new(2,'0')
+#Initializing ther players
+player1 = Player.new(1, 'X')
+player2 = Player.new(2, '0')
 puts "Welcome, #{player1.name} and #{player2.name}! Let's begin!"
 game_field.draw
 
+#Game flow
 game_over=false
 until game_over
     player1.turn(game_field)
